@@ -1,0 +1,33 @@
+.hero-wrapper {
+  .hero-image {
+    width: 100%;
+    height: 50vh;
+    background-image: url('../assets/backgroundFlowers.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    h1 {
+      font: $font-heading
+    }
+
+    .attributes {
+      ul {
+        display: flex;
+        column-gap: 10px;
+
+        li {
+          list-style: none;
+        }
+      }
+
+    }
+  }
+}
