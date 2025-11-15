@@ -1,17 +1,26 @@
-$color-primary: #1E3D32;
-$color-secondary: #2E5E4E;
-$color-accent: #F8DADF;
-$color-light: #FBF6ED;
+// Primary colors
+$color-primary: #1472D6;
+$color-secondary: #63484F;
 
-$color-neutral: #A6B6A0;
-$color-emphasis: #D94F70;
+// Background colors
+$color-bg-light: #F3EAF0;
+$color-bg-white: #FFFFFF;
+$color-bg-peach: #EBA3B9;
 
-$color-text: #111827;
-$color-text-light: #6b7280;
-$color-border: #d1d5db;
+// Accent colors
+$color-accent-pink: #F303E1;
+$color-accent-peach: #EBA3B9;
 
+// Text colors
+$color-text: #1A1A1A;
+$color-text-light: #63484F;
+$color-text-muted: #6b7280;
+$color-border: #EBA3B9;
+$color-border-light: #F3EAF0;
+$color-success: #10b981;
+$color-warning: #f59e0b;
+$color-error: #ef4444;
 
-// fonts
 $font-base: 'Inter', sans-serif;
 $font-heading: 'Playfair Display', serif;
 
@@ -23,3 +32,10 @@ $font-size-xl: 1.5rem;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
+
+$breakpoint-xs: 375px;
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
