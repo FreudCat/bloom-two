@@ -1,0 +1,12 @@
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: lightcyan;
+
+  .game-stage {
+    height: 400px;
+    width: 800px;
+    overflow: hidden;
+    border: 1px solid darkgray
+  }
+}
