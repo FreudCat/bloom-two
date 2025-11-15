@@ -6,7 +6,7 @@ const Hero = () => {
         <h1>Hello, I'm Angela</h1>
         <div className='attributes'>
           <ul>
-            <li>LifeLong learner</li>
+            <li>Lifelong learner</li>
             <li> | </li>
             <li>Web Developer</li>
             <li> | </li>
@@ -14,7 +14,7 @@ const Hero = () => {
           </ul>
         </div>
         <div>
-          <button className='learn-more'>Learn more about me below</button>
+          <button className='learn-more'><a href='#section-two-truths'>Learn more about me below</a></button>
         </div>
       </div>
     </section>

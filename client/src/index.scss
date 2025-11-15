@@ -1,4 +1,3 @@
-@import './styles/variables';
-@import './styles/global';
-@import './styles/hero';
-@import './styles/truths';
+@use './styles/global';
+@use './styles/hero';
+@use './styles/truths';

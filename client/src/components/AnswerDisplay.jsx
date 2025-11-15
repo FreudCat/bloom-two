@@ -1,17 +1,10 @@
 
-const AnswerDisplay = (selectedAnswer) => {
-  console.log("selected", selectedAnswer)
-
-  const answerMap = {
-    val1: 'you are correct',
-    val2: 'not correct',
-    val3: 'you are correct'
-  }
-
+const AnswerDisplay = (props) => {
   return (
-    <div>
-      <p></p>
-    </div>
+    <div
+      className={'answer-wrapper'} >
+      <p className={`${props.isCorrect ? 'correct' : 'incorrect'} answer`}>{props.message}</p>
+    </div >
   )
 }
 
