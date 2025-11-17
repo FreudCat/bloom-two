@@ -1,9 +1,12 @@
+@use './player';
+
 .game-wrapper {
   display: flex;
   justify-content: center;
   background-color: lightcyan;
 
   .game-stage {
+    position: relative;
     height: 400px;
     width: 800px;
     overflow: hidden;
