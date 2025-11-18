@@ -21,13 +21,19 @@ const Game = () => {
 
   const addPoints = () => {
     // each useReducer has a specific dispatch
-    dispatch({ type: 'ADD_SCORE', payload: 10 });
-  };
+    dispatch({
+      type: 'ADD_SCORE',
+      payload: 10
+    })
+  }
 
   return (
     <div className='game-wrapper'>
       <div className='game-stage'>
-        <Player />
+        <Player
+          x={state.player.x}
+          y={state.player.y}
+        />
       </div>
 
       <div>

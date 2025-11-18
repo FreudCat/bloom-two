@@ -1,7 +1,9 @@
 .player-wrapper {
   position: absolute;
 
-  transform: translateY(-50%);
-
-  .player {}
+  .player polygon {
+    fill: #00ff00;
+    stroke: #00aa00;
+    stroke-width: 1;
+  }
 }
