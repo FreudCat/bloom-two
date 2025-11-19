@@ -9,7 +9,8 @@ const useGameState = () => {
       velocityY: 0,
       lives: 3
     },
-    score: 0
+    score: 0,
+    gameSpeed: 2
   };
 
   function gameReducer(state, action) {
@@ -20,13 +21,20 @@ const useGameState = () => {
           score: state.score + action.payload
         }
       case 'UPDATE_PLAYER_POSITION':
+        const updatedPosition = state.player.y + action.payload.deltaY;
+        const clampedY = Math.max(0, Math.min(400, updatedPosition));
+
         return {
           ...state,
           player: {
             ...state.player,
-            x: state.player.x + action.payload.deltaX,
-            y: state.player.y + action.payload.deltaY
+            y: clampedY
           }
+        }
+      case 'SET_GAME_SPEED':
+        return {
+          ...state,
+          gameSpeed: action.payload.gameSpeed
         }
       case 'SET_PLAYER_VELOCITY_X':
         return {
