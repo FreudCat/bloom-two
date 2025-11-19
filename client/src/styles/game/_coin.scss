@@ -1,0 +1,17 @@
+.coin {
+  position: absolute;
+  font-size: 30px;
+  line-height: 1;
+  user-select: none;
+  animation: rotateCoin 2s linear infinite;
+}
+
+@keyframes rotateCoin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}

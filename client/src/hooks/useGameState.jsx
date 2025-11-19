@@ -10,7 +10,8 @@ const useGameState = () => {
     },
     score: 0,
     gameSpeed: 2,
-    fires: []
+    fires: [],
+    coins: []
   }
 
   function gameReducer(state, action) {
@@ -59,6 +60,21 @@ const useGameState = () => {
           ]
         }
 
+      case 'SPAWN_COIN':
+        const randomCoinY = Math.random() * 390
+        console.log("RANDOM Y COIN", randomCoinY)
+        return {
+          ...state,
+          coins: [
+            ...state.coins,
+            {
+              id: Date.now() + Math.random(),
+              x: 800,
+              y: randomCoinY
+            }
+          ]
+        }
+
       case 'UPDATE_FIRES':
         return {
           ...state,
@@ -69,6 +85,18 @@ const useGameState = () => {
             }))
             .filter(fire => fire.x > -50)
         }
+
+      case 'UPDATE_COINS':
+        return {
+          ...state,
+          coins: state.coins
+            .map(coin => ({
+              ...coin,
+              x: coin.x - state.gameSpeed
+            }))
+            .filter(coin => coin.x > -50)
+        }
+
 
       default:
         return state
@@ -88,6 +116,9 @@ const useGameState = () => {
       dispatch({
         type: 'UPDATE_FIRES'
       })
+      dispatch({
+        type: 'UPDATE_COINS'
+      })
     }, 16)
 
     return () => {
@@ -101,6 +132,14 @@ const useGameState = () => {
     }, 5000)
 
     return () => clearInterval(spawnInterval)
+  }, [])
+
+  useEffect(() => {
+    const spawnCoinInterval = setInterval(() => {
+      dispatch({ type: 'SPAWN_COIN' })
+    }, 5000)
+
+    return () => clearInterval(spawnCoinInterval)
   }, [])
 
 

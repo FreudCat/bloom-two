@@ -1,5 +1,6 @@
 import Player from "./Player"
 import Fire from "./Fire"
+import Coin from "./Coin"
 import useGameState from "../../hooks/useGameState"
 
 const Game = () => {
@@ -47,6 +48,14 @@ const Game = () => {
             key={fire.id}
             x={fire.x}
             y={fire.y}
+          />
+        ))}
+
+        {state.coins && state.coins.map(coin => (
+          <Coin
+            key={coin.id}
+            x={coin.x}
+            y={coin.y}
           />
         ))}
       </div>
