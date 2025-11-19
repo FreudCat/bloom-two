@@ -5,7 +5,6 @@ const useGameState = () => {
     player: {
       x: 80,
       y: 200,
-      velocityX: 2,
       velocityY: 0,
       lives: 3
     },
@@ -36,14 +35,6 @@ const useGameState = () => {
           ...state,
           gameSpeed: action.payload.gameSpeed
         }
-      case 'SET_PLAYER_VELOCITY_X':
-        return {
-          ...state,
-          player: {
-            ...state.player,
-            velocityX: action.payload.velocityX
-          }
-        }
       case 'SET_PLAYER_VELOCITY_Y':
         return {
           ...state,
@@ -65,7 +56,6 @@ const useGameState = () => {
       dispatch({
         type: 'UPDATE_PLAYER_POSITION',
         payload: {
-          deltaX: state.player.velocityX,
           deltaY: state.player.velocityY
         }
       })
@@ -74,23 +64,23 @@ const useGameState = () => {
     return () => {
       clearInterval(intervalId);
     }
-  }, [state.player.velocityX, state.player.velocityY])
+  }, [state.player.velocityY])
 
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'ArrowRight') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY_X',
-          payload: { velocityX: 5 }
-        });
+          type: 'SET_GAME_SPEED',
+          payload: { gameSpeed: 5 }
+        })
       }
 
       if (event.key === 'ArrowLeft') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY_X',
-          payload: { velocityX: 1 }
-        });
+          type: 'SET_GAME_SPEED',
+          payload: { gameSpeed: 1 }
+        })
       }
 
       if (event.key === 'ArrowUp') {
@@ -111,15 +101,15 @@ const useGameState = () => {
     const handleKeyUp = (event) => {
       if (event.key === 'ArrowRight') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY_X',
-          payload: { velocityX: 2 }
+          type: 'SET_GAME_SPEED',
+          payload: { gameSpeed: 3 }
         })
       }
 
       if (event.key === 'ArrowLeft') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY_X',
-          payload: { velocityX: 2 }
+          type: 'SET_GAME_SPEED',
+          payload: { gameSpeed: 3 }
         })
       }
 
