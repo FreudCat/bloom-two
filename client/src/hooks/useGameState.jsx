@@ -9,8 +9,9 @@ const useGameState = () => {
       lives: 3
     },
     score: 0,
-    gameSpeed: 2
-  };
+    gameSpeed: 2,
+    fires: []
+  }
 
   function gameReducer(state, action) {
     switch (action.type) {
@@ -20,8 +21,8 @@ const useGameState = () => {
           score: state.score + action.payload
         }
       case 'UPDATE_PLAYER_POSITION':
-        const updatedPosition = state.player.y + action.payload.deltaY;
-        const clampedY = Math.max(0, Math.min(400, updatedPosition));
+        const updatedPosition = state.player.y + action.payload.deltaY
+        const clampedY = Math.max(0, Math.min(400, updatedPosition))
 
         return {
           ...state,
@@ -44,6 +45,31 @@ const useGameState = () => {
           }
         }
 
+      case 'SPAWN_FIRE':
+        const randomY = Math.random() * 390
+        return {
+          ...state,
+          fires: [
+            ...state.fires,
+            {
+              id: Date.now() + Math.random(),
+              x: 800,
+              y: randomY
+            }
+          ]
+        }
+
+      case 'UPDATE_FIRES':
+        return {
+          ...state,
+          fires: state.fires
+            .map(fire => ({
+              ...fire,
+              x: fire.x - state.gameSpeed
+            }))
+            .filter(fire => fire.x > -50)
+        }
+
       default:
         return state
     }
@@ -59,12 +85,23 @@ const useGameState = () => {
           deltaY: state.player.velocityY
         }
       })
+      dispatch({
+        type: 'UPDATE_FIRES'
+      })
     }, 16)
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(intervalId)
     }
   }, [state.player.velocityY])
+
+  useEffect(() => {
+    const spawnInterval = setInterval(() => {
+      dispatch({ type: 'SPAWN_FIRE' })
+    }, 5000)
+
+    return () => clearInterval(spawnInterval)
+  }, [])
 
 
   useEffect(() => {
@@ -87,16 +124,16 @@ const useGameState = () => {
         dispatch({
           type: 'SET_PLAYER_VELOCITY_Y',
           payload: { velocityY: -2 }
-        });
+        })
       }
 
       if (event.key === 'ArrowDown') {
         dispatch({
           type: 'SET_PLAYER_VELOCITY_Y',
           payload: { velocityY: 2 }
-        });
+        })
       }
-    };
+    }
 
     const handleKeyUp = (event) => {
       if (event.key === 'ArrowRight') {
@@ -117,14 +154,14 @@ const useGameState = () => {
         dispatch({
           type: 'SET_PLAYER_VELOCITY_Y',
           payload: { velocityY: 0 }
-        });
+        })
       }
 
       if (event.key === 'ArrowDown') {
         dispatch({
           type: 'SET_PLAYER_VELOCITY_Y',
           payload: { velocityY: 0 }
-        });
+        })
       }
     }
 

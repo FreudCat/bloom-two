@@ -1,4 +1,5 @@
 import Player from "./Player"
+import Fire from "./Fire"
 import useGameState from "../../hooks/useGameState"
 
 const Game = () => {
@@ -29,11 +30,25 @@ const Game = () => {
 
   return (
     <div className='game-wrapper'>
-      <div className='game-stage'>
+      <div className='game-stage' style={{
+        position: 'relative',
+        width: '800px',
+        height: '400px',
+        overflow: 'hidden',
+        border: '2px solid #333'
+      }}>
         <Player
           x={state.player.x}
           y={state.player.y}
         />
+
+        {state.fires && state.fires.map(fire => (
+          <Fire
+            key={fire.id}
+            x={fire.x}
+            y={fire.y}
+          />
+        ))}
       </div>
 
       <div>
@@ -41,6 +56,8 @@ const Game = () => {
         <p>Lives: {state.player.lives}</p>
         <p>Player X: {state.player.x}</p>
         <p>Player Y: {state.player.y}</p>
+        <p>Game Speed: {state.gameSpeed}</p>
+        <p>fires: {state.fires ? state.fires.length : 0}</p>
       </div>
 
       {/* Test button */}
