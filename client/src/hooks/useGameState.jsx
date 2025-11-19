@@ -24,16 +24,24 @@ const useGameState = () => {
           ...state,
           player: {
             ...state.player,
-            x: state.player.x + action.payloaddeltaX,
+            x: state.player.x + action.payload.deltaX,
             y: state.player.y + action.payload.deltaY
           }
         }
-      case 'SET_PLAYER_VELOCITY':
+      case 'SET_PLAYER_VELOCITY_X':
         return {
           ...state,
           player: {
             ...state.player,
             velocityX: action.payload.velocityX
+          }
+        }
+      case 'SET_PLAYER_VELOCITY_Y':
+        return {
+          ...state,
+          player: {
+            ...state.player,
+            velocityY: action.payload.velocityY
           }
         }
 
@@ -50,7 +58,7 @@ const useGameState = () => {
         type: 'UPDATE_PLAYER_POSITION',
         payload: {
           deltaX: state.player.velocityX,
-          deltaY: 0
+          deltaY: state.player.velocityY
         }
       })
     }, 16)
@@ -58,22 +66,36 @@ const useGameState = () => {
     return () => {
       clearInterval(intervalId);
     }
-  }, [state.player.velocityX])
+  }, [state.player.velocityX, state.player.velocityY])
 
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'ArrowRight') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY',
+          type: 'SET_PLAYER_VELOCITY_X',
           payload: { velocityX: 5 }
         });
       }
 
       if (event.key === 'ArrowLeft') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY',
+          type: 'SET_PLAYER_VELOCITY_X',
           payload: { velocityX: 1 }
+        });
+      }
+
+      if (event.key === 'ArrowUp') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY_Y',
+          payload: { velocityY: -2 }
+        });
+      }
+
+      if (event.key === 'ArrowDown') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY_Y',
+          payload: { velocityY: 2 }
         });
       }
     };
@@ -81,16 +103,30 @@ const useGameState = () => {
     const handleKeyUp = (event) => {
       if (event.key === 'ArrowRight') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY',
+          type: 'SET_PLAYER_VELOCITY_X',
           payload: { velocityX: 2 }
         })
       }
 
       if (event.key === 'ArrowLeft') {
         dispatch({
-          type: 'SET_PLAYER_VELOCITY',
+          type: 'SET_PLAYER_VELOCITY_X',
           payload: { velocityX: 2 }
         })
+      }
+
+      if (event.key === 'ArrowUp') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY_Y',
+          payload: { velocityY: 0 }
+        });
+      }
+
+      if (event.key === 'ArrowDown') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY_Y',
+          payload: { velocityY: 0 }
+        });
       }
     }
 
