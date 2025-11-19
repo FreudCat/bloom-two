@@ -24,8 +24,16 @@ const useGameState = () => {
           ...state,
           player: {
             ...state.player,
-            x: state.player.x + action.payload.deltaX,
+            x: state.player.x + action.payloaddeltaX,
             y: state.player.y + action.payload.deltaY
+          }
+        }
+      case 'SET_PLAYER_VELOCITY':
+        return {
+          ...state,
+          player: {
+            ...state.player,
+            velocityX: action.payload.velocityX
           }
         }
 
@@ -41,7 +49,7 @@ const useGameState = () => {
       dispatch({
         type: 'UPDATE_PLAYER_POSITION',
         payload: {
-          deltaX: 2,
+          deltaX: state.player.velocityX,
           deltaY: 0
         }
       })
@@ -50,10 +58,50 @@ const useGameState = () => {
     return () => {
       clearInterval(intervalId);
     }
-  }, [])
+  }, [state.player.velocityX])
 
-  console.log("state", state)
-  console.log("dispath", dispatch)
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowRight') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY',
+          payload: { velocityX: 5 }
+        });
+      }
+
+      if (event.key === 'ArrowLeft') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY',
+          payload: { velocityX: 1 }
+        });
+      }
+    };
+
+    const handleKeyUp = (event) => {
+      if (event.key === 'ArrowRight') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY',
+          payload: { velocityX: 2 }
+        })
+      }
+
+      if (event.key === 'ArrowLeft') {
+        dispatch({
+          type: 'SET_PLAYER_VELOCITY',
+          payload: { velocityX: 2 }
+        })
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [])
 
   return { state, dispatch }
 }
