@@ -10,6 +10,7 @@ const useGameState = () => {
       isInvincible: false,
       isHit: false
     },
+    isStagePaused: false,
     score: 0,
     gameSpeed: 2,
     fires: [],
@@ -126,6 +127,9 @@ const useGameState = () => {
         return state
 
       case 'UPDATE_FIRES':
+        if (state.isStagePaused) {
+          return state
+        }
         return {
           ...state,
           fires: state.fires
@@ -137,6 +141,10 @@ const useGameState = () => {
         }
 
       case 'UPDATE_COINS':
+        if (state.isStagePaused) {
+          return state
+        }
+
         return {
           ...state,
           coins: state.coins
@@ -179,7 +187,8 @@ const useGameState = () => {
               player: {
                 ...state.player,
                 isHit: true
-              }
+              },
+              isStagePaused: true
             }
           }
         }
@@ -195,7 +204,8 @@ const useGameState = () => {
             lives: state.player.lives - 1,
             isHit: false,
             isInvincible: true
-          }
+          },
+          isStagePaused: false
         }
 
       case 'REMOVE_INVINCIBILITY':

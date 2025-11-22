@@ -69,6 +69,8 @@ const Game = () => {
         <p>Player Y: {state.player.y}</p>
         <p>Game Speed: {state.gameSpeed}</p>
         <p>fires: {state.fires ? state.fires.length : 0}</p>
+        <p>stage paused: {JSON.stringify(state.isStagePaused)}</p>
+        <p>is invincible: {state.player.isInvincible}</p>
       </div>
 
       {/* Test button */}
