@@ -2,6 +2,7 @@ import Player from "./Player"
 import Fire from "./Fire"
 import Coin from "./Coin"
 import useGameState from "../../hooks/useGameState"
+import GameOver from "./GameOver"
 
 const Game = () => {
   const { state, dispatch } = useGameState()
@@ -27,6 +28,22 @@ const Game = () => {
       type: 'ADD_SCORE',
       payload: 10
     })
+  }
+
+  const handleReplay = () => {
+    dispatch({ type: 'RESTART_GAME' })
+  }
+
+  if (state.isGameOver) {
+    return (
+      <div className='game-wrapper'>
+        <GameOver
+          score={state.score}
+          timePlayed={state.timePlayed}
+          replayGame={handleReplay}
+        />
+      </div>
+    )
   }
 
   return (
@@ -71,6 +88,7 @@ const Game = () => {
         <p>fires: {state.fires ? state.fires.length : 0}</p>
         <p>stage paused: {JSON.stringify(state.isStagePaused)}</p>
         <p>is invincible: {state.player.isInvincible}</p>
+        <p>game over: {JSON.stringify(state.isGameOver)}</p>
       </div>
 
       {/* Test button */}

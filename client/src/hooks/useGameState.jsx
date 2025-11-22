@@ -26,12 +26,12 @@ function hasPlayerCollidedWithObstacle(player, object, playerWidth, playerHeight
 }
 
 const useGameState = () => {
-  const initialState = {
+  const getInitialState = () => ({
     player: {
       x: 80,
       y: 200,
       velocityY: 0,
-      lives: 1,
+      lives: 2,
       isInvincible: false,
       isHit: false
     },
@@ -46,8 +46,13 @@ const useGameState = () => {
         x: 100,
         y: 100
       }
-    }
-  }
+    },
+    isGameOver: false,
+    gameStartTime: Date.now(),
+    timePlayed: 0
+  })
+
+  const initialState = getInitialState()
 
   function gameReducer(state, action) {
     switch (action.type) {
@@ -199,7 +204,8 @@ const useGameState = () => {
               ...state,
               player: {
                 ...state.player,
-                isHit: true
+                isHit: true,
+                lives: state.player.lives - 1
               },
               isStagePaused: true
             }
@@ -231,12 +237,26 @@ const useGameState = () => {
         return state
 
       case 'RESPAWN_PLAYER':
+        if (state.player.lives <= 0) {
+          console.log('0 lives')
+          return {
+            ...state,
+            isGameOver: true,
+            isStagePaused: true,
+            timePlayed: Date.now() - state.gameStartTime,
+            player: {
+              ...state.player,
+              isHit: false,
+              velocityY: 0
+            }
+          }
+        }
+
         return {
           ...state,
           player: {
             ...state.player,
             velocityY: 0,
-            lives: state.player.lives - 1,
             isHit: false,
             isInvincible: true
           },
@@ -251,6 +271,9 @@ const useGameState = () => {
             isInvincible: false
           }
         }
+
+      case 'RESTART_GAME':
+        return getInitialState()
 
       default:
         return state
@@ -297,6 +320,9 @@ const useGameState = () => {
   }, [state.player.isHit])
 
   useEffect(() => {
+    if (state.isGameOver) {
+      return
+    }
     const spawnInterval = setInterval(() => {
       dispatch({ type: 'SPAWN_FIRE' })
     }, 5000)
@@ -305,6 +331,9 @@ const useGameState = () => {
   }, [])
 
   useEffect(() => {
+    if (state.isGameOver) {
+      return
+    }
     const spawnCoinInterval = setInterval(() => {
       dispatch({ type: 'SPAWN_COIN' })
     }, 2000)
