@@ -1,4 +1,29 @@
 import { useReducer, useEffect } from "react"
+const PLAYER_WIDTH = 20
+const PLAYER_HEIGHT = 20
+const FIRE_WIDTH = 40
+const FIRE_HEIGHT = 60
+const COIN_HEIGHT_WIDTH = 40
+const COLLISION_BUFFER = 20
+
+function hasPlayerCollidedWithObstacle(player, object, playerWidth, playerHeight, objectWidth, objectHeight) {
+  const playerLeft = player.x
+  const playerRight = player.x + playerWidth
+  const playerTop = player.y
+  const playerBottom = player.y + playerHeight
+
+  const objectLeft = object.x
+  const objectRight = object.x + objectWidth
+  const objectTop = object.y
+  const objectBottom = object.y + objectHeight
+
+  return (
+    playerLeft < objectRight &&
+    playerRight > objectLeft &&
+    playerTop < objectBottom &&
+    playerBottom > objectTop
+  )
+}
 
 const useGameState = () => {
   const initialState = {
@@ -14,7 +39,14 @@ const useGameState = () => {
     score: 0,
     gameSpeed: 2,
     fires: [],
-    coins: []
+    coins: [],
+    infoForPlayer: {
+      coinCollected: {
+        value: '+10',
+        x: 100,
+        y: 100
+      }
+    }
   }
 
   function gameReducer(state, action) {
@@ -118,7 +150,8 @@ const useGameState = () => {
                 id: Date.now() + Math.random(),
                 x: safeCoordinatesForCoinToSpawn.x,
                 y: safeCoordinatesForCoinToSpawn.y,
-                size: coinSize
+                size: coinSize,
+                value: 10
               }
             ]
           }
@@ -156,32 +189,12 @@ const useGameState = () => {
         }
 
       case 'CHECK_PLAYER_FIRE_COLLISIONS':
-        function playerOverlapsFire(player, fire) {
-          const FIRE_SIZE = 40
-          const playerLeft = player.x
-          const playerRight = player.x + 20
-          const playerTop = player.y
-          const playerBottom = player.y + 20
-
-          const fireLeft = fire.x
-          const fireRight = fire.x + FIRE_SIZE
-          const fireTop = fire.y
-          const fireBottom = fire.y + FIRE_SIZE
-
-          return (
-            playerLeft < fireRight &&
-            playerRight > fireLeft &&
-            playerTop < fireBottom &&
-            playerBottom > fireTop
-          )
-        }
-
         if (state.player.isInvincible || state.player.isHit) {
           return state
         }
 
         for (const fire of state.fires) {
-          if (playerOverlapsFire(state.player, fire)) {
+          if (hasPlayerCollidedWithObstacle(state.player, fire, PLAYER_WIDTH, PLAYER_HEIGHT, FIRE_WIDTH, FIRE_WIDTH)) {
             return {
               ...state,
               player: {
@@ -189,6 +202,28 @@ const useGameState = () => {
                 isHit: true
               },
               isStagePaused: true
+            }
+          }
+        }
+
+        return state
+
+      case 'CHECK_PLAYER_COIN_COLLISIONS':
+        for (const coin of state.coins) {
+          if (hasPlayerCollidedWithObstacle(state.player, coin, PLAYER_WIDTH, PLAYER_HEIGHT, COIN_HEIGHT_WIDTH, COIN_HEIGHT_WIDTH
+          )) {
+            return {
+              ...state,
+              coins: state.coins.filter(coinItem => coinItem.id !== coin.id),
+              score: state.score + coin.value,
+              infoForPlayer: {
+                ...state.infoForPlayer,
+                coinCollected: {
+                  value: `+${coin.value}`,
+                  x: coin.x,
+                  y: coin.y
+                }
+              }
             }
           }
         }
@@ -238,8 +273,12 @@ const useGameState = () => {
       dispatch({
         type: 'UPDATE_COINS'
       })
-      dispatch({ type: 'CHECK_PLAYER_FIRE_COLLISIONS' })
-
+      dispatch({
+        type: 'CHECK_PLAYER_FIRE_COLLISIONS'
+      })
+      dispatch({
+        type: 'CHECK_PLAYER_COIN_COLLISIONS'
+      })
     }, 16)
 
     return () => {
