@@ -1,9 +1,37 @@
 .player-wrapper {
   position: absolute;
 
-  .player polygon {
-    fill: #00ff00;
-    stroke: #00aa00;
-    stroke-width: 1;
+  .player {
+    opacity: 1;
+
+    transition: opacity 0.5s ease-out polygon {
+      fill: #00ff00;
+      stroke: #00aa00;
+      stroke-width: 1;
+    }
+
+    &.hit {
+      opacity: 0;
+    }
+
+    &.invincible {
+      animation: blink 0.3s infinite
+    }
+
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+
+      100% {
+        opacity: 1;
+      }
+
+    }
   }
+
 }

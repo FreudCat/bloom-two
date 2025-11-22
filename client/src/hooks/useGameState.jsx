@@ -6,7 +6,9 @@ const useGameState = () => {
       x: 80,
       y: 200,
       velocityY: 0,
-      lives: 3
+      lives: 1,
+      isInvincible: false,
+      isHit: false
     },
     score: 0,
     gameSpeed: 2,
@@ -54,26 +56,71 @@ const useGameState = () => {
             ...state.fires,
             {
               id: Date.now() + Math.random(),
-              x: 800,
+              x: 700 + Math.random() * 100,
               y: randomY
             }
           ]
         }
 
       case 'SPAWN_COIN':
-        const randomCoinY = Math.random() * 390
-        console.log("RANDOM Y COIN", randomCoinY)
-        return {
-          ...state,
-          coins: [
-            ...state.coins,
-            {
-              id: Date.now() + Math.random(),
-              x: 800,
-              y: randomCoinY
-            }
-          ]
+        const hasCollisionWithFire = (coinX, coinY, coinSize, fires) => {
+          const SAFETY_BUFFER = 20
+          const FIRE_SIZE = 40
+
+          for (const fire of fires) {
+            const coinLeft = coinX - SAFETY_BUFFER
+            const coinRight = coinX + coinSize + SAFETY_BUFFER
+            const coinTop = coinY - SAFETY_BUFFER
+            const coinBottom = coinY + coinSize + SAFETY_BUFFER
+
+            const fireLeft = fire.x
+            const fireRight = fire.x + FIRE_SIZE
+            const fireTop = fire.y
+            const fireBottom = fire.y + FIRE_SIZE
+
+            const coinOverlapsFire = (
+              coinLeft < fireRight &&
+              coinRight > fireLeft &&
+              coinTop < fireBottom &&
+              coinBottom > fireTop
+            )
+          }
+
+          return coinOverlapsFire
         }
+
+        const MAX_ATTEMPTS_TO_SPAWN_COIN = 100
+        let coinSpawnAttempts = 0
+        let safeCoordinatesForCoinToSpawn = null
+        const coinSize = 40
+
+        while (coinSpawnAttempts < MAX_ATTEMPTS_TO_SPAWN_COIN && !safeCoordinatesForCoinToSpawn) {
+          const randomX = 850 + Math.random() * 150
+          const randomY = Math.random() * 320 + 40
+
+          if (!hasCollisionWithFire(randomX, randomY, coinSize, state.fires)) {
+            safeCoordinatesForCoinToSpawn = { x: randomX, y: randomY }
+          }
+
+          attempts++
+        }
+
+        if (safeCoordinatesForCoinToSpawn) {
+          return {
+            ...state,
+            coins: [
+              ...state.coins,
+              {
+                id: Date.now() + Math.random(),
+                x: safeCoordinatesForCoinToSpawn.x,
+                y: safeCoordinatesForCoinToSpawn.y,
+                size: coinSize
+              }
+            ]
+          }
+        }
+
+        return state
 
       case 'UPDATE_FIRES':
         return {
@@ -97,6 +144,44 @@ const useGameState = () => {
             .filter(coin => coin.x > -50)
         }
 
+      case 'CHECK_PLAYER_FIRE_COLLISIONS':
+        function playerOverlapsFire(player, fire) {
+          const FIRE_SIZE = 40
+          const playerLeft = player.x
+          const playerRight = player.x + 20
+          const playerTop = player.y
+          const playerBottom = player.y + 20
+
+          const fireLeft = fire.x
+          const fireRight = fire.x + FIRE_SIZE
+          const fireTop = fire.y
+          const fireBottom = fire.y + FIRE_SIZE
+
+          return (
+            playerLeft < fireRight &&
+            playerRight > fireLeft &&
+            playerTop < fireBottom &&
+            playerBottom > fireTop
+          )
+        }
+
+        if (state.player.isInvincible || state.player.isHit) {
+          return state
+        }
+
+        for (const fire of state.fires) {
+          if (playerOverlapsFire(state.player, fire)) {
+            return {
+              ...state,
+              player: {
+                ...state.player,
+                isHit: true
+              }
+            }
+          }
+        }
+
+        return state
 
       default:
         return state
@@ -119,12 +204,24 @@ const useGameState = () => {
       dispatch({
         type: 'UPDATE_COINS'
       })
+      dispatch({ type: 'CHECK_PLAYER_FIRE_COLLISIONS' })
+
     }, 16)
 
     return () => {
       clearInterval(intervalId)
     }
   }, [state.player.velocityY])
+
+  useEffect(() => {
+    if (state.player.isHit) {
+      const respawnTimer = setTimeout(() => {
+        dispatch({ type: 'RESPAWN_PLAYER' })
+      }, 500)
+
+      return () => clearTimeout(respawnTimer)
+    }
+  }, [state.player.isHit])
 
   useEffect(() => {
     const spawnInterval = setInterval(() => {
@@ -137,10 +234,21 @@ const useGameState = () => {
   useEffect(() => {
     const spawnCoinInterval = setInterval(() => {
       dispatch({ type: 'SPAWN_COIN' })
-    }, 5000)
+    }, 2000)
 
     return () => clearInterval(spawnCoinInterval)
   }, [])
+
+  useEffect(() => {
+    if (state.player.isInvincible) {
+
+      const invincibilityTimer = setTimeout(() => {
+        dispatch({ type: 'REMOVE_INVINCIBILITY' })
+      }, 3000)
+
+      return () => clearTimeout(invincibilityTimer)
+    }
+  }, [state.player.isInvincible])
 
 
   useEffect(() => {

@@ -14,7 +14,7 @@ const Player = (props) => {
         width='20'
         height='20'
         viewBox='0 0 20 20'
-        className='player'
+        className={`player ${props.isHit ? 'hit' : ''} ${props.isInvincible ? 'invincible' : ''}`}
       >
         <polygon points='0,0 20,10 0,20' />
       </svg>

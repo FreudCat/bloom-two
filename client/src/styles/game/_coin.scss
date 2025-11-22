@@ -1,9 +1,14 @@
 .coin {
   position: absolute;
+  display: flex;
+  align-items: center;
   font-size: 30px;
+  width: 40px;
+  height: 40px;
   line-height: 1;
   user-select: none;
   animation: rotateCoin 2s linear infinite;
+  background-color: blue;
 }
 
 @keyframes rotateCoin {

@@ -41,6 +41,8 @@ const Game = () => {
         <Player
           x={state.player.x}
           y={state.player.y}
+          isInvincible={state.player.isInvincible}
+          isHit={state.player.isHit}
         />
 
         {state.fires && state.fires.map(fire => (
