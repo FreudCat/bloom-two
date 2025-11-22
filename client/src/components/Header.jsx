@@ -13,8 +13,13 @@ const Header = () => {
 
   return (
     <header className={`header-wrapper ${isMenuOpen ? 'is-open' : ''}`}>
-      <Link to="/" className='logo'>
-        MyApp
+      <Link
+        to="/"
+        className='logo'
+      >
+        <img
+          src='../../public/vite.svg' alt='site logo with capital A'
+        />
       </Link>
       <nav className='nav-wrapper'>
         {navLinks.map(link => (

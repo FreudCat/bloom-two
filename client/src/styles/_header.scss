@@ -1,0 +1,24 @@
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 1rem;
+
+  .nav-wrapper {
+    display: flex;
+    gap: 4rem;
+
+    .nav-link {
+      text-decoration: none;
+
+      &:hover {
+        color: red;
+      }
+
+      &.active {
+        color: green;
+        border-bottom: 1px solid green;
+      }
+    }
+  }
+}
