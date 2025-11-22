@@ -84,9 +84,12 @@ const useGameState = () => {
               coinTop < fireBottom &&
               coinBottom > fireTop
             )
+            if (coinOverlapsFire) {
+              return true
+            }
           }
 
-          return coinOverlapsFire
+          return false
         }
 
         const MAX_ATTEMPTS_TO_SPAWN_COIN = 100
@@ -102,7 +105,7 @@ const useGameState = () => {
             safeCoordinatesForCoinToSpawn = { x: randomX, y: randomY }
           }
 
-          attempts++
+          coinSpawnAttempts++
         }
 
         if (safeCoordinatesForCoinToSpawn) {
@@ -182,6 +185,27 @@ const useGameState = () => {
         }
 
         return state
+
+      case 'RESPAWN_PLAYER':
+        return {
+          ...state,
+          player: {
+            ...state.player,
+            velocityY: 0,
+            lives: state.player.lives - 1,
+            isHit: false,
+            isInvincible: true
+          }
+        }
+
+      case 'REMOVE_INVINCIBILITY':
+        return {
+          ...state,
+          player: {
+            ...state.player,
+            isInvincible: false
+          }
+        }
 
       default:
         return state
