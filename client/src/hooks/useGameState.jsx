@@ -223,6 +223,24 @@ const useGameState = () => {
             const newScore = state.score + coin.value
             const newDifficultyLevel = Math.floor(newScore / 30)
 
+            if (newScore >= 100) {
+              return {
+                ...state,
+                coins: state.coins.filter(coinItem => coinItem.id !== coin.id),
+                score: newScore,
+                isGameOver: true,
+                timePlayed: Date.now() - state.gameStartTime,
+                infoForPlayer: {
+                  ...state.infoForPlayer,
+                  coinCollected: {
+                    value: `+${coin.value}`,
+                    x: coin.x,
+                    y: coin.y
+                  }
+                }
+              }
+            }
+
             return {
               ...state,
               coins: state.coins.filter(coinItem => coinItem.id !== coin.id),

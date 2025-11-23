@@ -25,6 +25,9 @@ const Game = () => {
 
   return (
     <div className='game-wrapper'>
+      <div className='how-to-win'>
+        <h2>Accumulate 100 points to win</h2>
+      </div>
       <div className='game-status'>
         <p><span>Score:</span> {state.score}</p>
         <p><span>Lives:</span> {state.player.lives}</p>

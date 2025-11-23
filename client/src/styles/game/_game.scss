@@ -16,6 +16,13 @@
   align-items: center;
   gap: 1.5rem;
 
+  .how-to-win {
+    h2 {
+      font-size: variables.$font-size-xl;
+      font-family: variables.$font-base;
+    }
+  }
+
   .game-status {
     display: flex;
     gap: 1.5rem;
@@ -32,6 +39,7 @@
 
       span {
         font-weight: variables.$font-weight-bold;
+        font-size: variables.$font-size-lg;
       }
     }
   }

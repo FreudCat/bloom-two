@@ -7,10 +7,13 @@ const GameOver = (props) => {
     ? `${minutes}m ${remainingSeconds}s`
     : `${seconds}s`
 
+  const isWinner = props.score >= 100
+  const title = isWinner ? 'Winner!' : 'Game Over!'
+
   return (
     <div className='game-over-wrapper'>
       <div className='game-over-content'>
-        <h2>Game Over!</h2>
+        <h2>{title}</h2>
         <div className='game-over-stats-wrapper'>
           <div className='stat'>
             <span className='stat-label'> Final Score:</span >
