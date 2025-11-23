@@ -5,12 +5,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 30px;
   font-size: 30px;
   line-height: 1;
   user-select: none;
   animation: flicker 0.3s infinite alternate;
+  border-radius: 50px;
 }
 
 @keyframes flicker {

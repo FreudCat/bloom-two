@@ -49,7 +49,8 @@ const useGameState = () => {
     },
     isGameOver: false,
     gameStartTime: Date.now(),
-    timePlayed: 0
+    timePlayed: 0,
+    difficultyLevel: 0
   })
 
   const initialState = getInitialState()
@@ -63,7 +64,8 @@ const useGameState = () => {
         }
       case 'UPDATE_PLAYER_POSITION':
         const updatedPosition = state.player.y + action.payload.deltaY
-        const clampedY = Math.max(0, Math.min(400, updatedPosition))
+        // Stage height is 400px, player height is 20px, so max Y is 380
+        const clampedY = Math.max(0, Math.min(380, updatedPosition))
 
         return {
           ...state,
@@ -87,14 +89,14 @@ const useGameState = () => {
         }
 
       case 'SPAWN_FIRE':
-        const randomY = Math.random() * 390
+        const randomY = Math.random() * 360
         return {
           ...state,
           fires: [
             ...state.fires,
             {
               id: Date.now() + Math.random(),
-              x: 700 + Math.random() * 100,
+              x: 800 + Math.random() * 100,
               y: randomY
             }
           ]
@@ -218,10 +220,14 @@ const useGameState = () => {
         for (const coin of state.coins) {
           if (hasPlayerCollidedWithObstacle(state.player, coin, PLAYER_WIDTH, PLAYER_HEIGHT, COIN_HEIGHT_WIDTH, COIN_HEIGHT_WIDTH
           )) {
+            const newScore = state.score + coin.value
+            const newDifficultyLevel = Math.floor(newScore / 30)
+
             return {
               ...state,
               coins: state.coins.filter(coinItem => coinItem.id !== coin.id),
-              score: state.score + coin.value,
+              score: newScore,
+              difficultyLevel: newDifficultyLevel,
               infoForPlayer: {
                 ...state.infoForPlayer,
                 coinCollected: {
@@ -327,12 +333,21 @@ const useGameState = () => {
     if (state.isGameOver) {
       return
     }
+
+    const baseInterval = 3000
+    const interval = baseInterval / (1 + 0.3 * state.difficultyLevel)
+
+    const firesPerSpawn = 1 + (2 * state.difficultyLevel)
+    console.log("interval", interval, "difficulty", state.difficultyLevel, "fires per spawn", firesPerSpawn)
+
     const spawnInterval = setInterval(() => {
-      dispatch({ type: 'SPAWN_FIRE' })
-    }, 5000)
+      for (let i = 0; i < firesPerSpawn; i++) {
+        dispatch({ type: 'SPAWN_FIRE' })
+      }
+    }, interval)
 
     return () => clearInterval(spawnInterval)
-  }, [])
+  }, [state.difficultyLevel, state.isGameOver])
 
   useEffect(() => {
     if (state.isGameOver) {
@@ -340,7 +355,7 @@ const useGameState = () => {
     }
     const spawnCoinInterval = setInterval(() => {
       dispatch({ type: 'SPAWN_COIN' })
-    }, 2000)
+    }, 3000)
 
     return () => clearInterval(spawnCoinInterval)
   }, [])
@@ -376,14 +391,14 @@ const useGameState = () => {
       if (event.key === 'ArrowUp') {
         dispatch({
           type: 'SET_PLAYER_VELOCITY_Y',
-          payload: { velocityY: -2 }
+          payload: { velocityY: -5 }
         })
       }
 
       if (event.key === 'ArrowDown') {
         dispatch({
           type: 'SET_PLAYER_VELOCITY_Y',
-          payload: { velocityY: 2 }
+          payload: { velocityY: 5 }
         })
       }
     }

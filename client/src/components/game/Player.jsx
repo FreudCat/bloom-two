@@ -1,6 +1,5 @@
 const Player = (props) => {
   const isInvincible = props.isInvincible
-  console.log("player props", props)
 
   return (
     <div
