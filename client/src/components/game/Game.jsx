@@ -25,36 +25,40 @@ const Game = () => {
 
   return (
     <div className='game-wrapper'>
-      <div className='how-to-win'>
-        <h2>Accumulate 100 points to win</h2>
-      </div>
       <div className='game-status'>
         <p><span>Score:</span> {state.score}</p>
         <p><span>Lives:</span> {state.player.lives}</p>
       </div>
-      <div className='game-stage'>
-        <Player
-          x={state.player.x}
-          y={state.player.y}
-          isInvincible={state.player.isInvincible}
-          isHit={state.player.isHit}
-        />
-
-        {state.fires && state.fires.map(fire => (
-          <Fire
-            key={fire.id}
-            x={fire.x}
-            y={fire.y}
+      <div className='game-stage-wrapper'>
+        <div className='instructions'>
+          <h2>Instructions:</h2>
+          <p>Use the arrow keys to move</p>
+          <p>Accumulate 100 points to win</p>
+        </div>
+        <div className='game-stage'>
+          <Player
+            x={state.player.x}
+            y={state.player.y}
+            isInvincible={state.player.isInvincible}
+            isHit={state.player.isHit}
           />
-        ))}
 
-        {state.coins && state.coins.map(coin => (
-          <Coin
-            key={coin.id}
-            x={coin.x}
-            y={coin.y}
-          />
-        ))}
+          {state.fires && state.fires.map(fire => (
+            <Fire
+              key={fire.id}
+              x={fire.x}
+              y={fire.y}
+            />
+          ))}
+
+          {state.coins && state.coins.map(coin => (
+            <Coin
+              key={coin.id}
+              x={coin.x}
+              y={coin.y}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

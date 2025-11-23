@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 2rem;
 }
 
 .game-wrapper {
@@ -16,10 +16,34 @@
   align-items: center;
   gap: 1.5rem;
 
-  .how-to-win {
-    h2 {
-      font-size: variables.$font-size-xl;
-      font-family: variables.$font-base;
+  .game-stage-wrapper {
+    display: flex;
+    gap: 3rem;
+
+    .instructions {
+      width: 10%;
+
+      h2 {
+        padding-bottom: 1rem;
+      }
+
+      p {
+        padding-bottom: 0.5rem;
+      }
+    }
+
+    .game-stage {
+      position: relative;
+      height: 400px;
+      width: 800px;
+      overflow: hidden;
+
+      // Sky gradient background - contrasts well with fire (red/orange) and coins (gold/yellow)
+      background: linear-gradient(to bottom, #87CEEB 0%, #B0D9F1 100%);
+
+      border: 3px solid variables.$color-text;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
   }
 
@@ -44,17 +68,5 @@
     }
   }
 
-  .game-stage {
-    position: relative;
-    height: 400px;
-    width: 800px;
-    overflow: hidden;
 
-    // Sky gradient background - contrasts well with fire (red/orange) and coins (gold/yellow)
-    background: linear-gradient(to bottom, #87CEEB 0%, #B0D9F1 100%);
-
-    border: 3px solid variables.$color-text;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
 }
