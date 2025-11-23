@@ -283,6 +283,10 @@ const useGameState = () => {
   const [state, dispatch] = useReducer(gameReducer, initialState)
 
   useEffect(() => {
+    if (state.isGameOver) {
+      return
+    }
+
     const intervalId = setInterval(() => {
       dispatch({
         type: 'UPDATE_PLAYER_POSITION',
@@ -307,7 +311,7 @@ const useGameState = () => {
     return () => {
       clearInterval(intervalId)
     }
-  }, [state.player.velocityY])
+  }, [state.player.velocityY, state.isGameOver])
 
   useEffect(() => {
     if (state.player.isHit) {

@@ -1,15 +1,52 @@
 @use './player';
+@use '../variables' as variables;
+
+.content-wrapper.game {
+  background-color: variables.$color-bg-light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
 
 .game-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  background-color: lightcyan;
+  align-items: center;
+  gap: 1.5rem;
+
+  .game-status {
+    display: flex;
+    gap: 1.5rem;
+    background-color: variables.$color-bg-white;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: variables.$font-size-sm;
+    color: variables.$color-text-light;
+
+    p {
+      margin: 0;
+      font-size: 1.25rem;
+
+      span {
+        font-weight: variables.$font-weight-bold;
+      }
+    }
+  }
 
   .game-stage {
     position: relative;
     height: 400px;
     width: 800px;
     overflow: hidden;
-    border: 1px solid darkgray
+
+    // Sky gradient background - contrasts well with fire (red/orange) and coins (gold/yellow)
+    background: linear-gradient(to bottom, #87CEEB 0%, #B0D9F1 100%);
+
+    border: 3px solid variables.$color-text;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 }
