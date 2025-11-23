@@ -29,6 +29,10 @@
 
       p {
         padding-bottom: 0.5rem;
+
+        span {
+          font-weight: variables.$font-weight-bold;
+        }
       }
     }
 

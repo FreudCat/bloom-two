@@ -34,6 +34,7 @@ const Game = () => {
           <h2>Instructions:</h2>
           <p>Use the arrow keys to move</p>
           <p>Accumulate 100 points to win</p>
+          <p><span>Note: </span>Game is not optimized for mobile devices</p>
         </div>
         <div className='game-stage'>
           <Player
