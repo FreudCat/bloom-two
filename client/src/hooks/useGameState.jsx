@@ -391,7 +391,15 @@ const useGameState = () => {
 
 
   useEffect(() => {
+    if (state.isGameOver) {
+      return
+    }
+
     const handleKeyDown = (event) => {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+        event.preventDefault()
+      }
+
       if (event.key === 'ArrowRight') {
         dispatch({
           type: 'SET_GAME_SPEED',
@@ -458,7 +466,7 @@ const useGameState = () => {
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
     }
-  }, [])
+  }, [state.isGameOver])
 
   return { state, dispatch }
 }
