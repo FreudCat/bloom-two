@@ -16,7 +16,7 @@ const Header = () => {
     { name: 'Home', path: '/' },
     { name: 'Contact', path: '/contact' },
     { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Game', path: '/path' }
+    { name: 'Game', path: '/game' }
   ]
 
   return (
@@ -24,10 +24,10 @@ const Header = () => {
       <Link
         to="/"
         className='logo'
+        onClick={closeMenu}
       >
         <img
-          src='../../public/vite.svg' alt='site logo with capital A'
-          onClick={closeMenu}
+          src='/logo.svg' alt='site logo'
         />
       </Link>
       <nav className={`nav-wrapper ${isMenuOpen ? 'nav-open' : ''}`}>
