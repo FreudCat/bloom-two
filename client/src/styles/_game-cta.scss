@@ -1,0 +1,81 @@
+@use './variables' as variables;
+@use 'sass:color';
+
+.game-cta {
+  padding: 3rem 1.5rem;
+  background-color: variables.$color-bg-white;
+  text-align: center;
+
+  @media (min-width: variables.$breakpoint-md) {
+    padding: 4rem 2rem;
+  }
+
+  h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: variables.$font-weight-bold;
+    color: variables.$color-text;
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.02em;
+
+    @media (min-width: variables.$breakpoint-md) {
+      font-size: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (min-width: variables.$breakpoint-lg) {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  p {
+    font-family: 'Lato', sans-serif;
+    font-size: variables.$font-size-base;
+    color: variables.$color-text-light;
+    margin: 0 auto 2rem;
+    max-width: 600px;
+    line-height: 1.6;
+
+    @media (min-width: variables.$breakpoint-md) {
+      font-size: variables.$font-size-lg;
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .game-cta-button {
+    background-color: variables.$color-primary;
+    color: variables.$color-bg-white;
+    font-family: 'Lato', sans-serif;
+    font-size: variables.$font-size-base;
+    font-weight: variables.$font-weight-medium;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.45);
+    letter-spacing: 0.02em;
+
+    @media (min-width: variables.$breakpoint-md) {
+      font-size: variables.$font-size-lg;
+      padding: 1rem 2.5rem;
+    }
+
+    &:hover {
+      background-color: color.adjust(variables.$color-primary, $lightness: -8%);
+      box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.45);
+    }
+
+    &:active {
+      background-color: color.adjust(variables.$color-primary, $lightness: -12%);
+      transform: translateY(1px);
+      box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.45);
+    }
+  }
+}

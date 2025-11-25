@@ -3,8 +3,6 @@ import { Link } from "@tanstack/react-router"
 const Footer = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Contact', path: '/contact' },
-    { name: 'Portfolio', path: '/portfolio' },
     { name: 'Game', path: '/game' }
   ]
 

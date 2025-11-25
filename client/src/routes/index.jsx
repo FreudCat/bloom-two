@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Hero from '../components/home/Hero'
-import PortfolioGallery from '../components/home/PortfolioGallery'
+import GameCTA from '../components/home/GameCTA'
 import TwoTruths from '../components/home/TwoTruths'
 
 export const Route = createFileRoute('/')({
@@ -12,7 +12,7 @@ function HomePage() {
     <div className='content-wrapper'>
       <Hero />
       <TwoTruths />
-      <PortfolioGallery />
+      <GameCTA />
     </div>
   )
 }

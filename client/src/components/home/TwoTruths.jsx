@@ -10,15 +10,15 @@ const TwoTruths = () => {
 
   const answerMap = {
     val1: {
-      message: 'Ooh, try again! I actually am a licensed veterinarian who taught and practiced at Washington State University for a few years before decided on a career change.',
-      isCorrect: false
+      message: 'You are correct! I actually am a licensed veterinarian who taught and practiced at Washington State University for a few years before deciding on a career change. ',
+      isCorrect: true
     },
     val2: {
-      message: 'You are correct! I actually have a worm farm, not an ant farm. The worm farm composts food scraps and makes vermicompost that can be used in the garden. Now I just need a garden! :)',
+      message: 'You are half correct! I was voted "most helpful" in 2024, but in 2025 I was voted "most zen" team member for calm problem-solving during stressful situations.',
       isCorrect: true
     },
     val3: {
-      message: 'Not quite! I did actually get to participate in a city-wide game of tag in Chicago. I got to the second "safe" station before I was tagged out.',
+      message: 'Not yet, but maybe one day!',
       isCorrect: false
     }
   }
@@ -26,8 +26,8 @@ const TwoTruths = () => {
   return (
     <section id='section-two-truths' className='two-truths'>
       <div className='selection-wrapper'>
-        <h2>Two Truths</h2>
-        <p>Pick the lie below</p>
+        <h2>Find the Truth!</h2>
+        <p>Guess the true statement</p>
         <fieldset className='selections'>
           <label className="selection">
             <input
@@ -37,7 +37,7 @@ const TwoTruths = () => {
               checked={selected === "val1"}
               onChange={handleChange}
               aria-label="I am a licensed veterinarian" />
-            I am a licensed veterinarian
+            Before entering the tech field, I practiced veterinary medicine. I am still licensed!
           </label>
 
           <label className="selection">
@@ -47,8 +47,8 @@ const TwoTruths = () => {
               value="val2"
               checked={selected === "val2"}
               onChange={handleChange}
-              aria-label="I own an ant farm" />
-            I own an ant farm
+              aria-label="I was voted “most helpful” team member for consistently cosistent problem-solving, mentorship, and documentation." />
+            In 2024 and 2025, I was voted “most helpful” team member for consistently cosistent problem-solving, mentorship, and documentation.
           </label>
 
           <label className="selection">
@@ -58,8 +58,8 @@ const TwoTruths = () => {
               value="val3"
               checked={selected === "val3"}
               onChange={handleChange}
-              aria-label="I once participated in a city-wide game of tag in Chicago" />
-            I once participated in a city-wide game of tag in Chicago
+              aria-label="I created a machine-learning model that predicts production bugs before they happen." />
+            I created a machine-learning model that predicts production bugs before they happen.
           </label>
         </fieldset>
       </div>
