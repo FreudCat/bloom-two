@@ -8,7 +8,7 @@ const Hero = () => {
           <ul>
             <li>Lifelong learner</li>
             <li> | </li>
-            <li>Web Developer</li>
+            <li>Software Engineer</li>
             <li> | </li>
             <li>Silks Enthusiast</li>
           </ul>
