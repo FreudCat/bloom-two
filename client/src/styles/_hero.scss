@@ -4,84 +4,164 @@
 .hero-wrapper {
   margin-bottom: 2rem;
 
-  .hero-image {
-    width: 100%;
-    height: 30vh;
-    background-image: url('../assets/cherry-blossoms-4825302_1920.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  .curved-background {
+    padding: 0 0 10rem 0;
+
+    position: relative;
+    background-color: variables.$color-tertiary;
 
     @media (min-width: variables.$breakpoint-md) {
-      height: 33vh;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    @media (min-width: variables.$breakpoint-md) {
+      padding: 4rem 2rem 6rem;
+    }
+
+    .hero-top-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+
+      @media (min-width: variables.$breakpoint-md) {
+        flex-direction: row-reverse;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .hero-text {
+        flex: 1;
+        color: variables.$color-bg-white;
+
+        h1 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 2.5rem;
+          font-weight: variables.$font-weight-bold;
+          color: variables.$color-bg-white;
+          margin: 0 0 1rem 0;
+          text-align: center;
+          letter-spacing: 0.02em;
+
+          @media (min-width: variables.$breakpoint-md) {
+            font-size: 3rem;
+            text-align: left;
+          }
+
+          @media (min-width: variables.$breakpoint-lg) {
+            font-size: 4rem;
+          }
+        }
+
+        p {
+          padding: 0 10px;
+          text-align: center;
+        }
+
+        .attributes {
+          margin-bottom: 1rem;
+
+          ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0;
+            margin: 0;
+
+            @media (min-width: variables.$breakpoint-md) {
+              justify-content: flex-start;
+              gap: 0.75rem;
+            }
+
+            li {
+              list-style: none;
+              display: flex;
+              align-items: center;
+              font-size: 14px;
+              color: variables.$color-bg-white;
+              font-weight: variables.$font-weight-regular;
+              letter-spacing: 0.01em;
+
+              @media (min-width: variables.$breakpoint-xs) {
+                font-size: variables.$font-size-base;
+              }
+
+              @media (min-width: variables.$breakpoint-md) {
+                font-size: variables.$font-size-lg;
+              }
+            }
+          }
+        }
+      }
+
+      .hero-image {
+        width: 100%;
+        height: 100px;
+        aspect-ratio: 1;
+        background-image: url('../assets/cherry-blossoms-4825302_1920.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+        @media (min-width: variables.$breakpoint-md) {
+          max-width: 325px;
+          height: 100%;
+          border-radius: 8px;
+        }
+
+        @media (min-width: variables.$breakpoint-lg) {
+          max-width: 400px;
+        }
+      }
+    }
+
+    .curve {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+
+      @media (min-width: variables.$breakpoint-md) {
+        height: 100px;
+      }
     }
   }
 
-  .hero-content {
+  .hero-content-card {
+    position: relative;
+    max-width: 900px;
+    margin: -80px auto 0;
+    background: variables.$color-bg-white;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: variables.$font-weight-bold;
-      color: variables.$color-text;
-      margin-top: 2rem;
-      text-align: center;
-      letter-spacing: 0.02em;
-
-      @media (min-width: variables.$breakpoint-md) {
-        font-size: 3rem;
-        margin-top: 2.5rem;
-      }
-
-      @media (min-width: variables.$breakpoint-lg) {
-        font-size: 4rem;
-      }
-    }
-
-    .attributes {
-      ul {
-        display: flex;
-        align-items: center;
-        gap: 0.45rem;
-        padding: 0;
-        margin: 0;
-
-        @media (min-width: variables.$breakpoint-md) {
-          gap: 0.75rem;
-        }
-
-        li {
-          list-style: none;
-          display: flex;
-          align-items: center;
-          font-size: 14px;
-          color: variables.$color-text-light;
-          font-weight: variables.$font-weight-regular;
-          letter-spacing: 0.01em;
-
-          @media (min-width: variables.$breakpoint-xs) {
-            font-size: variables.$font-size-base;
-          }
-
-          @media (min-width: variables.$breakpoint-md) {
-            font-size: variables.$font-size-lg;
-          }
-        }
-      }
+    @media (min-width: variables.$breakpoint-md) {
+      margin-top: -100px;
+      padding: 3rem 2.5rem;
     }
 
     .about-me {
-      padding-top: 2rem;
       color: variables.$color-text-light;
-      width: 90%;
-      margin: auto;
-      text-align: center;
+      font-family: 'Lato', sans-serif;
+      font-size: variables.$font-size-base;
+      line-height: 1.6;
+      margin: 0 0 2rem 0;
 
       @media (min-width: variables.$breakpoint-md) {
-        width: 50%;
+        font-size: variables.$font-size-lg;
       }
     }
 
@@ -97,12 +177,10 @@
       transition: all 0.3s ease;
       box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.45);
       letter-spacing: 0.02em;
-      margin-top: 3rem;
 
       @media (min-width: variables.$breakpoint-md) {
         font-size: variables.$font-size-lg;
         padding: 1rem 2.5rem;
-        margin-top: 4rem;
       }
 
       &:hover {
