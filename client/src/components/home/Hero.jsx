@@ -19,12 +19,15 @@ const Hero = () => {
             </p>
           </div>
         </div>
-        <svg className='curve' viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <svg className='curve curve-mobile' viewBox="0 0 1440 100" preserveAspectRatio="none">
           <path d="M0,0 C480,100 960,100 1440,0 L1440,100 L0,100 Z" fill="#FFFFFF" />
+        </svg>
+        <svg className='curve curve-desktop' viewBox="0 0 1440 100" preserveAspectRatio="none">
+          <path d="M0,0 C480,200 960,200 1440,0 L1440,100 L0,100 Z" fill="#FFFFFF" />
         </svg>
       </div>
 
-      <div className='hero-content-card'>
+      <div className='hero-testimonials-card'>
         <p className='about-me'></p>
         <button className='learn-more'><a href='#section-two-truths'>Learn more about me below</a></button>
       </div>

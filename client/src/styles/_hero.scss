@@ -5,17 +5,13 @@
   margin-bottom: 2rem;
 
   .curved-background {
-    padding: 0 0 10rem 0;
+    padding: 0 0 8rem 0;
 
     position: relative;
     background-color: variables.$color-tertiary;
 
     @media (min-width: variables.$breakpoint-md) {
-      padding: 3rem 1.5rem 5rem;
-    }
-
-    @media (min-width: variables.$breakpoint-md) {
-      padding: 4rem 2rem 6rem;
+      padding: 3rem 2rem 11rem;
     }
 
     .hero-top-content {
@@ -47,7 +43,6 @@
 
           @media (min-width: variables.$breakpoint-md) {
             font-size: 3rem;
-            text-align: left;
           }
 
           @media (min-width: variables.$breakpoint-lg) {
@@ -56,8 +51,12 @@
         }
 
         p {
-          padding: 0 10px;
+          padding: 0 20px;
           text-align: center;
+
+          @media (min-width: variables.$breakpoint-md) {
+            padding: 0 10px;
+          }
         }
 
         .attributes {
@@ -73,7 +72,6 @@
             margin: 0;
 
             @media (min-width: variables.$breakpoint-md) {
-              justify-content: flex-start;
               gap: 0.75rem;
             }
 
@@ -88,10 +86,6 @@
 
               @media (min-width: variables.$breakpoint-xs) {
                 font-size: variables.$font-size-base;
-              }
-
-              @media (min-width: variables.$breakpoint-md) {
-                font-size: variables.$font-size-lg;
               }
             }
           }
@@ -132,11 +126,27 @@
         height: 100px;
       }
     }
+
+    .curve-mobile {
+      display: block;
+
+      @media (min-width: variables.$breakpoint-md) {
+        display: none;
+      }
+    }
+
+    .curve-desktop {
+      display: none;
+
+      @media (min-width: variables.$breakpoint-md) {
+        display: block;
+      }
+    }
   }
 
-  .hero-content-card {
+  .hero-testimonials-card {
     position: relative;
-    max-width: 900px;
+    max-width: 60vh;
     margin: -80px auto 0;
     background: variables.$color-bg-white;
     border-radius: 12px;
@@ -144,6 +154,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     z-index: 10;
     display: flex;
+    border: 2px solid pink;
     flex-direction: column;
     align-items: center;
     text-align: center;
