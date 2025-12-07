@@ -26,7 +26,7 @@ const TwoTruths = () => {
   return (
     <section id='section-two-truths' className='two-truths'>
       <div className='selection-wrapper'>
-        <h2>Find the Truth!</h2>
+        <h2>More About Me</h2>
         <p>Guess the true statement</p>
         <fieldset className='selections'>
           <label className="selection">

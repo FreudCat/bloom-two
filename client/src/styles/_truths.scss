@@ -1,15 +1,12 @@
 @use './variables' as variables;
+@use 'sass:color';
 
 .two-truths {
   padding: 3rem 1.5rem;
   background-color: variables.$color-bg-white;
 
   @media (min-width: variables.$breakpoint-md) {
-    padding: 4rem 2rem;
-  }
-
-  @media (min-width: variables.$breakpoint-lg) {
-    padding: 5rem 2rem;
+    padding: 2rem;
   }
 
   .selection-wrapper {
@@ -39,7 +36,7 @@
       }
     }
 
-    >p {
+    p {
       font-family: 'Lato', sans-serif;
       font-size: variables.$font-size-base;
       color: variables.$color-text-light;
@@ -61,7 +58,8 @@
       margin: 0;
       width: 100%;
 
-      @media (min-width: variables.$breakpoint-md) {
+      @media (min-width: variables.$breakpoint-sm) {
+        flex-direction: row;
         gap: 1.25rem;
       }
 
@@ -73,12 +71,22 @@
         min-height: 44px;
         display: flex;
         align-items: center;
+        justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
         font-family: 'Lato', sans-serif;
         font-size: variables.$font-size-base;
         color: variables.$color-text;
         font-weight: variables.$font-weight-regular;
+        text-align: center;
+        flex: 1;
+        border-left: 4px solid color.adjust(variables.$color-accent-green, $lightness: -15%);
+
+        box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.2);
+
+        &:hover {
+          box-shadow: 6px 6px 6px rgb(0, 0, 0, 0.25);
+        }
 
         @media (min-width: variables.$breakpoint-md) {
           padding: 1.25rem 1.5rem;
@@ -140,6 +148,7 @@
       color: variables.$color-text;
       line-height: 1.6;
       margin: 0;
+      box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.2);
 
       &.correct {
         border-left: 4px solid variables.$color-accent-green;
