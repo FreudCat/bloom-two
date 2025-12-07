@@ -2,19 +2,33 @@
 @use 'sass:color';
 
 .game-cta {
-  padding: 3rem 1.5rem;
-  background-color: variables.$color-bg-white;
+  position: relative;
+
   text-align: center;
 
-  @media (min-width: variables.$breakpoint-md) {
-    padding: 4rem 2rem;
+  .curve-top {
+    display: block;
+    width: 100%;
+    height: 80px;
+    margin: 2rem 0 0;
+    padding: 0;
+    line-height: 0;
+
+    @media (min-width: variables.$breakpoint-md) {
+      height: 100px;
+    }
+  }
+
+  .content {
+    background-color: variables.$color-tertiary;
+    padding: 1.5rem 1.5rem 3rem;
   }
 
   h3 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
     font-weight: variables.$font-weight-bold;
-    color: variables.$color-text;
+    color: variables.$color-bg-peach-light;
     margin: 0 0 1rem 0;
     letter-spacing: 0.02em;
 
@@ -32,7 +46,7 @@
   p {
     font-family: 'Lato', sans-serif;
     font-size: variables.$font-size-base;
-    color: variables.$color-text-light;
+    color: variables.$color-bg-light;
     margin: 0 auto 2rem;
     max-width: 600px;
     line-height: 1.6;
