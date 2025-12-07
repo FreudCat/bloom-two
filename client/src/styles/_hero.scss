@@ -160,6 +160,17 @@
       padding: 3rem 2.5rem;
     }
 
+    h2 {
+      margin-bottom: 1rem;
+      text-align: center;
+      color: variables.$color-primary;
+
+      @media (min-width: variables.$breakpoint-sm) {
+        font-size: 2.25rem;
+        margin-bottom: 2rem;
+      }
+    }
+
     .swiper-button-next,
     .swiper-button-prev {
       color: variables.$color-primary;
