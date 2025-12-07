@@ -1,3 +1,5 @@
+import Testimonials from './Testimonials'
+
 const Hero = () => {
   return (
     <section className='hero-wrapper'>
@@ -27,10 +29,11 @@ const Hero = () => {
         </svg>
       </div>
 
-      <div className='hero-testimonials-card'>
+      <Testimonials />
+      {/* <div className='hero-testimonials-card'>
         <p className='about-me'></p>
         <button className='learn-more'><a href='#section-two-truths'>Learn more about me below</a></button>
-      </div>
+      </div> */}
     </section>
   )
 }
